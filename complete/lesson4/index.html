@@ -39,6 +39,20 @@
         return (day==0 || day==6) ? "It's the weekend" : "It's not the weekend";
     }
 
+    function word(ch) {
+        switch (ch) {
+            case 'a':
+                console.log(`${ch} for apple`)
+                break;
+            case 'b':
+                console.log(`${ch} for ball`)
+                break;
+            default:
+                console.log(`Sorry I don't have a word starting with ${ch}`)
+                break;
+        }
+    }
+
     function today(){
         const day = new Date().getDay();
 
@@ -51,6 +65,7 @@
                 break;
             case 2:
                 console.log('Today is Tuesday');
+                console.log('Tuesday has a nice ring to it')
                 break;
             case 3:
                 console.log('Today is Wednesday');
@@ -70,6 +85,9 @@
             
         }
     }
+    today();
+    word('a');
+    word('c');
     </script>
 </body>
 
