@@ -26,8 +26,8 @@ class Stack {
         }
         else {
             this.position--;
-            this.items.pop();
-            return this;
+            return this.items.pop();
+            // return this;
         }
     }
 
@@ -41,6 +41,25 @@ class Stack {
     {
         return this.items.length == 0;
     }
+
+    reverseArray(arr) {
+        const n = this.length
+        for (let i = 0; i < n; i++) {
+            // Insert arr[i] into the stack
+            console.log(arr[i])
+            this.push(arr[i]);
+
+        }
+        console.log(this.items)        
+        // Reverse the array elements
+        for (let i = 0; i < n; i++) {
+            // Update arr[i]
+            arr[i] = this.pop();
+        }
+
+        return arr;
+    }
+
 }
 
 
@@ -63,3 +82,5 @@ console.log(stack.pop());
 console.log(stack.pop());
 console.log(stack.pop());
 console.log(stack.pop());
+const arr = [3,4,5,1,2];
+console.log(stack.reverseArray(arr))
