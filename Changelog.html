@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Trail Test</title>
+</head>
+<body>
+  <h1>Audit Trail Log</h1>
+  <pre id="auditTrailOutput"></pre>
+  <script>
+    // JavaScript code goes here
+    const auditTrailData = [
+      {
+        action: 'create',
+        entity: 'user',
+        entityId: '123',
+        timestamp: '2024-11-20T10:00:00Z',
+        performedBy: 'adminUser123',
+        changes: {
+          createdFields: {
+            username: 'john_doe',
+            email: 'john.doe@example.com',
+            role: 'admin',
+            dateCreated: '2024-11-20T10:00:00Z'
+          }
+        }
+      },
+      {
+        action: 'update',
+        entity: 'user',
+        entityId: '123',
+        timestamp: '2024-11-21T12:30:00Z',
+        performedBy: 'adminUser124',
+        changes: {
+          updatedFields: {
+            username: { old: 'john_doe', new: 'johnny_doe' },
+            email: { old: 'john.doe@example.com', new: 'johnny.doe@example.com' }
+          }
+        }
+      },
+      {
+        action: 'delete',
+        entity: 'user',
+        entityId: '123',
+        timestamp: '2024-11-22T14:00:00Z',
+        performedBy: 'adminUser125',
+        changes: {
+          deletedFields: {
+            username: 'johnny_doe',
+            email: 'johnny.doe@example.com',
+            role: 'admin'
+          }
+        }
+      }
+    ];
+
+    function generateAuditTrail(data) {
+      let auditTrailText = '## Audit Trail\n\n';
+      
+      data.forEach(entry => {
+        auditTrailText += `### ${entry.action.toUpperCase()} - ${entry.entity} ID: ${entry.entityId} - ${entry.timestamp}\n`;
+        auditTrailText += `Performed by: ${entry.performedBy}\n\n`;
+
+        if (entry.action === 'create') {
+          auditTrailText += `Created Fields:\n`;
+          for (let field in entry.changes.createdFields) {
+            auditTrailText += `- ${field}: ${entry.changes.createdFields[field]}\n`;
+          }
+        }
+
+        if (entry.action === 'update') {
+          auditTrailText += `Updated Fields:\n`;
+          for (let field in entry.changes.updatedFields) {
+            auditTrailText += `- ${field}: from '${entry.changes.updatedFields[field].old}' to '${entry.changes.updatedFields[field].new}'\n`;
+          }
+        }
+
+        if (entry.action === 'delete') {
+          auditTrailText += `Deleted Fields:\n`;
+          for (let field in entry.changes.deletedFields) {
+            auditTrailText += `- ${field}: ${entry.changes.deletedFields[field]}\n`;
+          }
+        }
+
+        auditTrailText += '\n';
+      });
+
+      return auditTrailText;
+    }
+
+    // Output to the HTML page
+    document.getElementById('auditTrailOutput').textContent = generateAuditTrail(auditTrailData);
+  </script>
+</body>
+</html>
